@@ -27,7 +27,6 @@ function m.getDialects(cfg)
   cfg = string.lower(cfg)
   flag = '-std=' .. cfg
   flags = table.join(flags, flag)
-  print(flag)
   return flags
 end
 
