@@ -21,11 +21,24 @@ function m.getIncludeDirs(cfg)
   return flags
 end
 
+function m.getDialects(cfg)
+  local flags = {}
+  -- make string lower case to join
+  cfg = string.lower(cfg)
+  flag = '-std=' .. cfg
+  flags = table.join(flags, flag)
+  print(flag)
+  return flags
+end
+
 function m.getCommonFlags(cfg)
   local toolset = m.getToolset(cfg)
   local flags = toolset.getcppflags(cfg)
   flags = table.join(flags, toolset.getdefines(cfg.defines))
   flags = table.join(flags, toolset.getundefines(cfg.undefines))
+  if cfg.cppdialect then
+      flags = table.join(flags, m.getDialects(cfg.cppdialect))
+  end
   -- can't use toolset.getincludedirs because some tools that consume
   -- compile_commands.json have problems with relative include paths
   flags = table.join(flags, m.getIncludeDirs(cfg))
