@@ -1,3 +1,5 @@
+Forked from [tarruda/premake-export-compile-commands](https://github.com/tarruda/premake-export-compile-commands)
+
 ## Generate compile_commands.json for premake projects
 
 This module implements [JSON Compilation Database Format
@@ -7,7 +9,7 @@ premake projects.
 Install this module somewhere premake can find it, for example:
 
 ```
-git clone https://github.com/tarruda/premake-export-compile-commands export-compile-commands
+git clone https://github.com/marcusyqy/premake-export-compile-commands export-compile-commands
 ```
 
 Then put this at the top of your system script(eg: ~/.premake/premake-system.lua):
@@ -42,3 +44,9 @@ Generated WORKSPACE_BUILD_DIR/compile_commands/release_x64.json...
 
 where each file contain the compilation commands for the corresponding
 config/platform combo.
+
+From there, create a symlink or copy the commands out to the rootdir based on build settings. 
+```bat
+# argument %1 is the configuration name given. for symlink in bat files
+call cmd /c mklink compile_commands.json .\compile_commands\%1.json
+```
